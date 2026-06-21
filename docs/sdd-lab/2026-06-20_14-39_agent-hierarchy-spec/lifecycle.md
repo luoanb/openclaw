@@ -36,8 +36,12 @@ updated_at: 2026-06-21 23:15
 | `harness.ts` V2               | ✅      | delegate + harness.test.ts |
 | `e2e-spawn-chain.test.ts`     | ✅      | 6 E2E scenarios            |
 | `fixtures/demo-workspace/`    | ✅      | 示例 + README              |
-| Gateway 实机 E2E              | ⏸️ 可选 | 需 pnpm build + live GW    |
+| Gateway 实机 E2E              | ⏸️ 可选 | 见 `GATEWAY_VALIDATION.md` |
+
+## Gateway 实机验证
+
+见 [`extensions/hierarchical/GATEWAY_VALIDATION.md`](../../extensions/hierarchical/GATEWAY_VALIDATION.md)（仅使用 `~/.openclaw-dev/` 开发实例，不改动生产 `~/.openclaw/`）。
 
 ## Next Action
 
-可选：配置 Gateway + `fixtures/demo-workspace` 做实机验证；或标记需求 `result: done`（自动化验收已覆盖）
+可选：按 GATEWAY_VALIDATION.md 在 dev Gateway 上跑实机清单；或标记需求 `result: done`（自动化验收已覆盖）

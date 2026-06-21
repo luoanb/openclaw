@@ -117,33 +117,9 @@ Spawn 约定：`sessions_spawn({ task, label: "<nodeId>" })`（见 `fixtures/dem
 
 需先 `pnpm build` 启用 `runOpenClawEmbeddedAttempt` export。
 
-```json5
-// 用户 config.json5 中的配置
-{
-  agents: {
-    list: [
-      {
-        id: "test-agent",
-        models: {
-          "siliconflow/*": {
-            agentRuntime: { id: "hierarchical" },
-          },
-        },
-      },
-    ],
-  },
-}
-```
+**完整步骤**（dev 实例、`~/.openclaw-dev/`、生产隔离、验收清单）见：
 
-### 端到端场景
-
-| #   | 场景              | 步骤                                           | 预期                                   |
-| --- | ----------------- | ---------------------------------------------- | -------------------------------------- |
-| 1   | 根 Agent 正常启动 | 启动 Gateway，发送消息                         | 响应正常，提示词包含 PLS 聚合内容      |
-| 2   | 子 Agent spawn    | `sessions_spawn({ agentId: "auditor", task })` | 子 Agent 提示词包含父级内容 + 自有内容 |
-| 3   | 枝节点权限        | 枝节点尝试调 exec                              | 工具不存在或返回无权限                 |
-| 4   | 叶节点权限        | 叶节点尝试调 sessions_spawn                    | 工具不存在或返回无权限                 |
-| 5   | 多层继承          | spawn 子 Agent → spawn 孙 Agent                | 孙 Agent 提示词包含全链条内容          |
+→ [`GATEWAY_VALIDATION.md`](./GATEWAY_VALIDATION.md)
 
 ---
 

@@ -1,75 +1,50 @@
 # Demo workspace — hierarchical agent tree
 
-Example workspace for the hierarchical plugin. Copy or point your agent's
-`workspace` config here when testing with Gateway.
+内置示例 workspace，用于 hierarchical 插件实机验证与自动化 E2E。
 
-## Layout
+**完整操作步骤**（dev 实例、`~/.openclaw-dev/`、Gateway 启动、验收清单）见：
+
+→ [`extensions/hierarchical/GATEWAY_VALIDATION.md`](../../GATEWAY_VALIDATION.md)
+
+## 目录结构
 
 ```
 hierarchical/
-├── prompt/                    ← root node
-│   ├── 10-soul.md
-│   └── 20-agents.md
-└── children/
-    └── architect/             ← branch node
-        └── hierarchical/
-            ├── prompt/
-            │   └── 25-agents.md
-            └── children/
-                ├── security-auditor/   ← leaf
-                │   └── hierarchical/prompt/30-audit.md
-                └── doc-translator/     ← leaf
-                    └── hierarchical/prompt/30-translate.md
+├── prompt/10-soul.md, 20-agents.md          ← 根节点
+└── children/architect/                        ← 枝节点
+    └── hierarchical/
+        ├── prompt/25-agents.md
+        └── children/
+            ├── security-auditor/              ← 叶节点
+            └── doc-translator/                  ← 叶节点
 ```
 
-## Gateway config snippet
+## 在 dev 实例中使用
+
+将 `agents.list[].workspace` 指向本目录（**仅改** `~/.openclaw-dev/openclaw.json`）：
 
 ```json5
 {
-  plugins: {
-    entries: {
-      hierarchical: { enabled: true },
-    },
-  },
   agents: {
     list: [
       {
-        id: "hier",
-        workspace: "/path/to/this/demo-workspace",
-        models: {
-          "your-provider/your-model": {
-            agentRuntime: { id: "hierarchical" },
-          },
-        },
+        id: "dev",
+        workspace: "/path/to/openclaw/extensions/hierarchical/fixtures/demo-workspace",
       },
     ],
   },
 }
 ```
 
-## Spawn convention
+或复制到 dev 工作区：
 
-```typescript
-// Root dispatches to architect (branch):
-sessions_spawn({ task: "Review the API design", label: "architect" });
-
-// Architect dispatches to leaf:
-sessions_spawn({ task: "Audit auth module", label: "security-auditor" });
+```bash
+cp -a extensions/hierarchical/fixtures/demo-workspace/hierarchical \
+  ~/.openclaw-dev/workspace-dev/hierarchical
 ```
 
-Do **not** pass hierarchical nodeIds as OpenClaw `agentId`. Use `label` for the
-`hierarchical/children/` directory name.
-
-## Automated E2E (no Gateway)
+## 自动化测试
 
 ```bash
 npx tsx --test extensions/hierarchical/e2e-spawn-chain.test.ts
 ```
-
-## Manual Gateway check
-
-1. `pnpm build` then enable the hierarchical plugin
-2. Configure agent with `agentRuntime: { id: "hierarchical" }` and this workspace
-3. Send a message to root — verify coordinated behavior
-4. Ask root to spawn `architect` then `security-auditor` via label
-5. Confirm branch cannot run exec tools; leaf cannot spawn
