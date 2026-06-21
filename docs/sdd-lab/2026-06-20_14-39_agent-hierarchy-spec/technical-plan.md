@@ -361,7 +361,8 @@ api.registerAgentHarness({
 |---|---|---|
 | V1 | PLS + Scanner + NTS 模块 + harness 桩（验证组装逻辑） | ✅ 完成 |
 | V2 | node-path-resolver + harness delegate OpenClaw runner + toolsAllow 硬过滤 | ✅ 完成（46 tests） |
-| V3 | Gateway E2E + 实机 spawn 链验证 | ❌ 待做 |
+| V3 | Gateway E2E spawn 链（自动化） | ✅ 6 tests + demo-workspace fixture |
+| V3b | Gateway 实机验证 | ⏸️ 可选（需 pnpm build + live GW） |
 
 ## Open Questions / 开放问题（已关闭）
 

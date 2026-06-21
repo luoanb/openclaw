@@ -91,9 +91,31 @@ npx tsx --test extensions/hierarchical/*.test.ts
 
 ---
 
-## 4. 集成验证（可选 — 需要 Gateway 环境）
+## 4. E2E 验证
 
-### 配置验证
+### 4a. 自动化 spawn 链（无需 Gateway）✅
+
+使用 `fixtures/demo-workspace/` + 模拟 session 链，覆盖 VALIDATION 原 §4 五场景：
+
+```bash
+npx tsx --test extensions/hierarchical/e2e-spawn-chain.test.ts
+# 或跑全量：
+npx tsx --test extensions/hierarchical/*.test.ts   # 52 tests
+```
+
+| #   | 场景           | 自动化验证方式                                    |
+| --- | -------------- | ------------------------------------------------- |
+| 1   | 根 Agent 启动  | session `agent:hier:main` → PLS 含 root prompt    |
+| 2   | 子 Agent spawn | `label: architect` 链 → 继承 root + branch 内容   |
+| 3   | 枝节点权限     | architect → `toolsAllow` 无 exec/read             |
+| 4   | 叶节点权限     | security-auditor → `toolsAllow` 无 sessions_spawn |
+| 5   | 多层继承       | root → architect → security-auditor 三层 PLS 全链 |
+
+Spawn 约定：`sessions_spawn({ task, label: "<nodeId>" })`（见 `fixtures/demo-workspace/README.md`）。
+
+### 4b. 手动 Gateway 验证（可选）
+
+需先 `pnpm build` 启用 `runOpenClawEmbeddedAttempt` export。
 
 ```json5
 // 用户 config.json5 中的配置
@@ -127,8 +149,9 @@ npx tsx --test extensions/hierarchical/*.test.ts
 
 ## 5. 验证执行计划
 
-| 阶段 | 内容                | 预计时间 |
-| ---- | ------------------- | -------- |
-| 1    | 编写 3 个 test 文件 | ~20 min  |
-| 2    | 运行测试，修 bug    | ~10 min  |
-| 3    | （可选）集成验证    | ~15 min  |
+| 阶段 | 内容                                    | 预计时间   |
+| ---- | --------------------------------------- | ---------- |
+| 1    | 编写 3 个 test 文件                     | ~20 min    |
+| 2    | 运行测试，修 bug                        | ~10 min    |
+| 3    | E2E spawn 链（e2e-spawn-chain.test.ts） | ✅ 6 cases |
+| 4    | 手动 Gateway 实机验证                   | 可选       |
