@@ -152,6 +152,7 @@ export {
   SKILL_WORKSHOP_TOOL_NAME,
 } from "../agents/skill-workshop-prompt.js";
 export { resolveAttemptFsWorkspaceOnly } from "../agents/embedded-agent-runner/run/attempt.prompt-helpers.js";
+export { runEmbeddedAttempt as runOpenClawEmbeddedAttempt } from "../agents/embedded-agent-runner/run/attempt.js";
 export { resolveAttemptSpawnWorkspaceDir } from "../agents/embedded-agent-runner/run/attempt.thread-helpers.js";
 export { buildEmbeddedAttemptToolRunContext } from "../agents/embedded-agent-runner/run/attempt.tool-run-context.js";
 export {
