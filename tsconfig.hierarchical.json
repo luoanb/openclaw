@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "strict": true,
+    "skipLibCheck": true,
+    "noEmit": true,
+    "ignoreDeprecations": "6.0",
+    "paths": {
+      "openclaw/plugin-sdk/*": ["./node_modules/openclaw/dist/plugin-sdk/*"],
+      "openclaw/plugin-sdk/agent-runtime": ["./node_modules/openclaw/dist/plugin-sdk/agent-runtime.d.ts"],
+      "openclaw/plugin-sdk/agent-harness-runtime": ["./node_modules/openclaw/dist/plugin-sdk/agent-harness-runtime.d.ts"],
+      "openclaw/plugin-sdk/plugin-entry": ["./node_modules/openclaw/dist/plugin-sdk/plugin-entry.d.ts"]
+    },
+    "typeRoots": ["./node_modules/@types"]
+  },
+  "include": ["extensions/hierarchical/**/*.ts"]
+}

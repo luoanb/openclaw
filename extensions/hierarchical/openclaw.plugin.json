@@ -1,0 +1,14 @@
+{
+  "id": "hierarchical",
+  "name": "Hierarchical",
+  "description": "Tree-hierarchy agent harness with inherited prompts (PLS) and node-type tool isolation (NTS).",
+  "activation": {
+    "onStartup": false,
+    "onAgentHarnesses": ["hierarchical"]
+  },
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {}
+  }
+}

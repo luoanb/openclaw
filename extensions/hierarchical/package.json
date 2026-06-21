@@ -1,0 +1,23 @@
+{
+  "name": "@openclaw/hierarchical",
+  "version": "2026.6.21",
+  "description": "Tree-hierarchy agent harness: inherited prompts via PLS + node-type tool isolation.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/openclaw/openclaw"
+  },
+  "type": "module",
+  "devDependencies": {
+    "@openclaw/plugin-sdk": "workspace:*"
+  },
+  "openclaw": {
+    "extensions": ["./index.ts"],
+    "compat": {
+      "pluginApi": ">=2026.6.8"
+    },
+    "build": {
+      "openclawVersion": "2026.6.8",
+      "copySources": false
+    }
+  }
+}

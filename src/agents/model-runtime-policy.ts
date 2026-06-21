@@ -70,11 +70,6 @@ function normalizeModelIdForProvider(
   if (slash <= 0) {
     return trimmed;
   }
-  const modelProvider = normalizeProviderId(trimmed.slice(0, slash));
-  const expectedProvider = normalizeProviderId(provider ?? "");
-  if (expectedProvider && modelProvider !== expectedProvider) {
-    return undefined;
-  }
   return trimmed.slice(slash + 1).trim() || undefined;
 }
 
