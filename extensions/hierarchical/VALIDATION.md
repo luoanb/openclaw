@@ -1,5 +1,6 @@
 # Validation Plan — Hierarchical Extension
 
+> 架构与 spawn/turn 说明见 [`README.md`](README.md)。  
 > 验证覆盖 3 个核心模块 + 1 个集成场景，不依赖 Gateway 运行环境。
 
 ---

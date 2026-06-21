@@ -1,5 +1,8 @@
 /**
  * Builds hierarchical prompt supplement and tool allow-list for one agent turn.
+ *
+ * Called from harness.runAttempt (not from sessions_spawn). Uses sessionKey +
+ * spawnedBy + label (via readSession) to resolve nodeDir, then PLS + NTS.
  */
 
 import { formatChildrenList, scanAgentChildren } from "./agent-children-scanner.js";

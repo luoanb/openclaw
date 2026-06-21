@@ -1,11 +1,19 @@
 /**
  * Hierarchical agent harness — AgentHarness implementation.
  *
- * V2: Resolves node path → builds PLS/NTS context → delegates the actual
- * model/tool loop to the OpenClaw embedded runner via `runOpenClawEmbeddedAttempt`.
+ * Architecture (two layers, one turn):
+ *   1. Outer runAttempt — preprocessor only: node path, PLS, NTS, supplement.
+ *   2. delegateRunAttempt → runOpenClawEmbeddedAttempt — native model/tool loop.
  *
- * Registration:
- *   api.registerAgentHarness(createHierarchicalHarness(deps))
+ * Does not hook or replace core sessions_spawn. Spawn writes label/spawnedBy;
+ * this harness reads them on each turn via readSession + node-path-resolver.
+ *
+ * delegateRunAttempt passes:
+ *   - extraSystemPrompt / toolsAllow — already enriched by buildHierarchicalAttemptContext
+ *   - agentHarnessRuntimeOverride: "openclaw" — inner run must not re-enter hierarchical
+ *
+ * Registration: api.registerAgentHarness(createHierarchicalHarness(deps))
+ * Overview: extensions/hierarchical/README.md
  */
 
 import type {
@@ -88,9 +96,9 @@ export function createHierarchicalHarness(deps: HierarchicalHarnessDeps = {}): A
           extraSystemPrompt: params.extraSystemPrompt,
         });
 
+        // Inner layer: native embedded runner consumes enriched prompt/tools only.
         const delegated = await delegateRunAttempt({
           ...params,
-          // Prevent re-entering this harness on the delegated attempt.
           agentHarnessRuntimeOverride: "openclaw",
           extraSystemPrompt: ctx.extraSystemPrompt,
           toolsAllow: ctx.toolsAllow,

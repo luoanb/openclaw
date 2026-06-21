@@ -1,5 +1,7 @@
 # Hierarchical 插件 — 实机验证指南
 
+架构说明（spawn vs turn、delegate、`label` 约定）见 [`README.md`](README.md)。
+
 本文说明如何在 **开发实例** 上对 hierarchical harness 做 Gateway 实机验证。
 
 > **禁止改动生产配置**：`~/.openclaw/openclaw.json` 为生产环境，本文所有配置与命令仅针对 **`~/.openclaw-dev/`** 开发实例。

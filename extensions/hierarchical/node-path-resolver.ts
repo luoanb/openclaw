@@ -5,7 +5,7 @@
  * the workspace-relative directory that owns `hierarchical/prompt/` and
  * `hierarchical/children/` for this tree node.
  *
- * Spawn routing (see requirements.md):
+ * Spawn routing (see README.md):
  * - Root: nodeDir = workspace root
  * - Child: walk spawnedBy chain; each session's `label` = nodeId under parent's children/
  */

@@ -12,7 +12,7 @@ import path from "node:path";
 
 /** One sub-agent entry discovered in the filesystem */
 export type AgentChildEntry = {
-  /** Directory name under `children/` — also the agentId for spawn */
+  /** Directory name under `children/` — use as `sessions_spawn.label` (nodeId). */
   agentId: string;
   /** `name` from frontmatter */
   name: string;
@@ -131,7 +131,8 @@ export function formatChildrenList(entries: AgentChildEntry[]): string {
 
   return (
     `\n## Available Sub-Agents\n` +
-    `\nThe following sub-agents can be spawned via sessions_spawn(agentId: "..."):\n` +
+    `\nSpawn with sessions_spawn({ task, label: "<nodeId>" }). ` +
+    `label must match the directory name under hierarchical/children/ (see <location>).\n` +
     `\n<available_agents>\n${items}\n</available_agents>`
   );
 }

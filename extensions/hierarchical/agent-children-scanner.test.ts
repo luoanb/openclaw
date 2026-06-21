@@ -164,6 +164,7 @@ describe("agent-children-scanner", () => {
     assert.ok(xml.includes("代码安全审计"));
     assert.ok(xml.includes("方案架构设计"));
     assert.ok(xml.includes("<location>children/auditor/</location>"));
+    assert.ok(xml.includes('label: "<nodeId>"'));
   });
 
   it("9. empty list produces empty string", async () => {

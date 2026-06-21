@@ -2,6 +2,8 @@
 
 内置示例 workspace，用于 hierarchical 插件实机验证与自动化 E2E。
 
+**架构说明**（两层 harness、spawn vs turn、`label` 路由）：[`../README.md`](../README.md)
+
 **完整操作步骤**（dev 实例、`~/.openclaw-dev/`、Gateway 启动、验收清单）见：
 
 → [`extensions/hierarchical/GATEWAY_VALIDATION.md`](../../GATEWAY_VALIDATION.md)
